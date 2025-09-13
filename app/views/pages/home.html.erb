@@ -1,0 +1,47 @@
+<div class="bg-light text-center p-5">
+  <h1 class="display-4 fw-bold">Welcome to Hairitege</h1>
+  <p class="lead">Empowering stylists to guide clients on their healthy hair journey.</p>
+
+  <% if user_signed_in? %>
+    <p>Welcome back, <%= current_user.name %>!</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-primary btn-lg" %>
+    </div>
+
+    <% if current_user.role == "stylist" %>
+      <div class="text-center mt-4 p-3" style="background-color: rgba(108, 92, 231, 0.1); border-radius: 12px;">
+        <%= link_to "Go to Your Dashboard", stylist_dashboard_path, class: "btn btn-primary btn-xl px-5 py-3 fw-bold" %>
+      </div>
+    <% end %>
+    
+  <% else %>
+    <div class="d-flex justify-content-center gap-3 flex-wrap mt-3">
+      <%= link_to "Sign In", new_user_session_path, class: "btn btn-primary btn-lg" %>
+      <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-secondary btn-lg" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="container my-5 d-flex justify-content-center">
+  <div class="bg-light rounded-pill shadow-lg p-5 text-center" style="max-width: 800px; border: 3px solid #6c5ce7;">
+    <h2 class="mb-4 text-primary">Stylist Tools</h2>
+    <div class="row gx-4 gy-3 justify-content-center">
+      <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+        <i class="bi bi-pencil-square fs-3 text-info me-2"></i>
+        <span>Edit Notes</span>
+      </div>
+      <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+        <i class="bi bi-bookmark fs-3 text-success me-2"></i>
+        <span>Save Products</span>
+      </div>
+      <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+        <i class="bi bi-bag fs-3 text-warning me-2"></i>
+        <span>Product Library</span>
+      </div>
+      <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+        <i class="bi bi-graph-up fs-3 text-primary me-2"></i>
+        <span>Track Progress</span>
+      </div>
+    </div>
+  </div>
+</div>

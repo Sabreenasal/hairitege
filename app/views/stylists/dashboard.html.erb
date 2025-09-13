@@ -1,0 +1,55 @@
+<div class="bg-light shadow-sm py-3 px-4 d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <%= link_to "← Back to Home", root_path, class: "btn btn-outline-secondary" %>
+  </div>
+  <div class="fw-bold fs-4">Hairitege</div>
+  <div>
+    <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+  </div>
+</div>
+
+<div class="container py-5">
+  <h2 class="text-center mb-4">Your Clients</h2>
+
+  <% if @clients.any? %>
+    <div class="row g-4">
+      <% @clients.each do |client| %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <h5 class="card-title"><%= client.name %></h5>
+              <p class="card-text text-muted"><%= client.email %></p>
+              <%= link_to "Open Mane-Vault", mane_vault_path(client_id: client.id), class: "btn btn-primary mt-3" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-muted fs-5">You don’t have any clients yet. Add one below to get started!</p>
+  <% end %>
+
+  <div class="text-center mt-5">
+    <h4 class="mb-3">Add New Client</h4>
+
+    <% if @new_client && @new_client.errors.any? %>
+      <div class="alert alert-danger text-start">
+        <h6>The following errors prevented the client from being saved:</h6>
+        <ul class="mb-0">
+          <% @new_client.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with scope: :user, url: create_client_stylists_path, method: :post, local: true do |f| %>
+      <%= f.text_field :name, placeholder: "Client Name", class: "form-control mb-3", required: true %>
+      <%= f.email_field :email, placeholder: "Client Email", class: "form-control mb-3", required: true %>
+      <%= f.password_field :password, placeholder: "Password", class: "form-control mb-3", required: true %>
+      <%= f.hidden_field :role, value: "client" %>
+      <%= f.submit "Add New Client", class: "btn btn-lg btn-primary shadow-sm w-100" %>
+    <% end %>
+  </div>
+</div>
+

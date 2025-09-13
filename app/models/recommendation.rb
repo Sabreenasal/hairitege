@@ -19,5 +19,6 @@
 #  fk_rails_...  (product_id => products.id)
 #
 class Recommendation < ApplicationRecord
-  belongs_to :product
+  belongs_to :product, optional: true
+
 end

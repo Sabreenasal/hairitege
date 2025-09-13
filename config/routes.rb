@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
+  get "pages/home"
+  root "pages#home"
+
   devise_for :users
-  # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
-  # get("/your_first_screen", { :controller => "pages", :action => "first" })
+
+  get "stylists/dashboard", to: "stylists#dashboard", as: :stylist_dashboard
+
+  resources :stylists, only: [] do
+    collection do
+      post "create_client", to: "stylists#create_client"
+    end
+  end
 end

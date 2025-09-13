@@ -23,4 +23,20 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  has_many :recommendations_as_stylist, class_name: "Recommendation", foreign_key: "stylist_id", dependent: :destroy
+  has_many :recommendations_as_client, class_name: "Recommendation", foreign_key: "client_id", dependent: :destroy
+
+  before_validation :set_default_role, on: :create
+
+  def clients
+    User.joins(:recommendations_as_client)
+        .where(recommendations: { stylist_id: id })
+        .distinct
+  end
+
+  private
+
+  def set_default_role
+    self.role ||= "stylist"
+  end
 end
