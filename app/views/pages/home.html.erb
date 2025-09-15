@@ -17,7 +17,7 @@
 
       <div class="col-lg-8 text-center">
 
-        <!-- Hero Card for Text + Buttons -->
+      
         <div class="card p-4 p-lg-5 shadow-lg border-light mb-4" style="background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px;">
           <h1 class="display-4 fw-bold text-white mb-3" style="font-family: 'Lora', serif;">Welcome to Hairitege</h1>
           <p class="lead text-white mb-4" style="font-family: 'Roboto', sans-serif;">Empowering stylists to guide clients on their healthy hair journey.</p>
@@ -28,11 +28,19 @@
               <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-light btn-lg px-4 py-2" %>
             </div>
 
-            <% if current_user.role == "stylist" %>
-              <%= link_to "Go to Your Dashboard", stylist_dashboard_path, class: "btn btn-light btn-xl px-5 py-3 fw-bold mb-2" %>
-            <% elsif current_user.role == "client" %>
-              <%= link_to "Go to Your Mane Vault", mane_vault_path(client_id: current_user.id), class: "btn btn-light btn-xl px-5 py-3 fw-bold mb-2" %>
-            <% end %>
+     <% if current_user.role == "stylist" %>
+  <%= button_to "Go to Your Dashboard", 
+                stylist_dashboard_path, 
+                method: :get,
+                class: "btn btn-success btn-lg px-5 py-3 fw-bold mb-2 shadow-sm" %>
+<% elsif current_user.role == "client" %>
+  <%= button_to "Go to Your Mane Vault", 
+                mane_vault_path(client_id: current_user.id), 
+                method: :get,
+                class: "btn btn-success btn-lg px-5 py-3 fw-bold mb-2 shadow-sm" %>
+<% end %>
+
+
 
           <% else %>
             <div class="d-flex flex-wrap gap-3 justify-content-center mt-4">
