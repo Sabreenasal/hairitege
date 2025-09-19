@@ -13,3 +13,186 @@
 @import "bootstrap-utilities.css";
 @import "pico.pagy.css";
 @import "pico.firstdraft.css";
+
+.card.green-shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 128, 0, 0.4); /* green shadow */
+  border-radius: 1rem; /* optional, makes cards look softer */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card.green-shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1rem 1.5rem rgba(0, 128, 0, 0.6);
+}
+
+.custom-heading {
+  color: #28a745; /* green */
+  font-family: 'Dancing Script', cursive; /* or Lobster, if loaded */
+  font-size: 2.5rem;
+}
+.card-btn {
+  display: inline-block;   /* shrink to text */
+  width: auto;             /* do not stretch */
+  padding: 0.35rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 0.25rem;  /* standard button corners */
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.card-btn-green {
+  background-color: #28a745; /* your green theme */
+  color: white;
+  border: none;
+}
+
+.card-btn-green:hover {
+  background-color: #218838; /* slightly darker green on hover */
+  text-decoration: none;
+  color: white;
+}
+
+
+.card-btn-red {
+  background-color: #dc3545; /* red for remove */
+  color: white;
+  border: none;
+}
+
+.card-btn-red:hover {
+  background-color: #c82333;
+  text-decoration: none;
+  color: white;
+}
+.client-name {
+  font-family: 'Lobster', cursive; /* stylish font */
+  color: #0d6efd;                  /* Bootstrap primary blue */
+  font-size: 1.25rem;               /* slightly larger */
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  background-color: #e7f1ff;        /* very light blue background */
+}
+
+
+.client-name {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.client-name {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #e6f4ea; /* very light green */
+  color: #1e7e34;
+  font-weight: 600;
+}
+
+/* Make client names blue with a subtle background */
+.card .client-name {
+  font-family: 'Lobster', cursive;  /* stylish font */
+  color: #0d6efd !important;        /* Bootstrap primary blue */
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: #e7f1ff;        /* very light blue */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* subtle depth */
+}
+
+.btn-outline-success, .btn-outline-danger {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-outline-success:hover, .btn-outline-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.4s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-blue {
+  color: #0d6efd; /* Bootstrap primary blue */
+}
+
+.border-blue {
+  border-color: #0d6efd !important;
+}
+
+.card-blue {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-blue:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.btn-blue-outline {
+  color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-blue-outline:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.text-green {
+  color: #28a745; /* your signature green */
+}
+
+.font-lobster {
+  font-family: 'Lobster', cursive;
+}
+
+.mane-vault-title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+}
+
+.mane-vault-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background: linear-gradient(90deg, #28a745, #0d6efd); /* green to blue */
+  border-radius: 2px;
+}
+
+/* html, body {
+  height: 100%;
+  overflow: hidden;
+} */
+
+.main-container {
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,95 @@
+<%= render 'shared/navbar' %>
+
+<div class="container py-5">
+  <h1 class="text-center mb-5 text-green font-lobster mane-vault-title">
+    <%= @client.name %>'s Mane Vault
+  </h1>
+
+  <% if @recommendations.any? %>
+    <div class="row g-4">
+      <% @recommendations.each do |rec| %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card green-shadow h-100 p-3 border-blue" data-recommendation-id="<%= rec.id %>">
+
+            <div class="card-body d-flex flex-column justify-content-between">
+
+              <h5 class="card-title text-blue mb-1"><%= rec.product.name %></h5>
+              <p class="card-text text-muted mb-3"><%= rec.product.brand %></p>
+
+              <% if current_user.stylist? %>
+
+                <button 
+                  type="button" 
+                  class="btn btn-outline-primary w-100 mb-2"
+                  data-bs-toggle="modal" 
+                  data-bs-target="#notesModal"
+                  data-notes="<%= rec.notes %>"
+                  data-action="<%= recommendation_path(rec) %>">
+                  View Notes
+                </button>
+
+                <%= button_to "Unrecommend", client_recommendation_path(@client, rec),
+                              method: :delete,
+                              params: { redirect_to: request.fullpath },
+                              data: { confirm: "Remove this product from the Mane Vault?" },
+                              class: "btn btn-danger w-100" %>
+
+              <% else %>
+                <% if rec.notes.present? %>
+                  <p class="card-text mt-2"><strong>Notes:</strong> <%= rec.notes %></p>
+                <% else %>
+                  <p class="card-text text-muted mt-2">No notes added yet.</p>
+                <% end %>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-muted fs-5">No recommendations yet for this client. Add some to populate the Mane Vault!</p>
+  <% end %>
+</div>
+
+<div class="modal fade" id="notesModal" tabindex="-1" aria-labelledby="notesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notesModalLabel">Edit Notes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with url: "#", id: "notesForm", method: :patch, local: false do |f| %>
+
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+          <div class="mb-3">
+            <%= label_tag "recommendation_notes", "Notes" %>
+            <%= text_area_tag "recommendation[notes]", nil, class: "form-control", rows: 4, placeholder: "Add or edit notes..." %>
+          </div>
+
+          <%= submit_tag "Save Notes", class: "btn btn-success w-100" %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const notesModal = document.getElementById("notesModal");
+    notesModal.addEventListener("show.bs.modal", (event) => {
+      const button = event.relatedTarget;
+      const notes = button.getAttribute("data-notes");
+      const action = button.getAttribute("data-action");
+
+      const textarea = notesModal.querySelector("textarea");
+      const form = notesModal.querySelector("form");
+
+      textarea.value = notes;
+      form.action = action;
+    });
+  });
+</script>

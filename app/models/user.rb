@@ -1,0 +1,43 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :bigint           not null, primary key
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  name                   :string
+#  remember_created_at    :datetime
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  role                   :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+class User < ApplicationRecord
+ 
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+ 
+  validates :role, presence: true, inclusion: { in: %w[stylist client] }
+
+  
+  has_many :given_recommendations, class_name: "Recommendation", foreign_key: "stylist_id", dependent: :destroy
+
+  has_many :recommendations, foreign_key: "client_id", dependent: :destroy
+
+  has_many :clients, -> { distinct }, through: :given_recommendations, source: :client
+   
+  def stylist?
+    role == "stylist"
+  end
+
+  def client?
+    role == "client"
+  end
+end

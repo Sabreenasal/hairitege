@@ -1,0 +1,12 @@
+<div class="container py-5">
+  <h1 class="text-center mb-4 text-purple">Edit Notes for <%= @recommendation.product.name %></h1>
+
+  <%= form_with model: @recommendation, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :notes, class: "form-label" %>
+      <%= f.text_area :notes, class: "form-control", rows: 5 %>
+    </div>
+    <%= f.submit "Update Notes", class: "btn btn-primary" %>
+    <%= link_to "Cancel", mane_vault_client_path(@recommendation.client_id), class: "btn btn-secondary ms-2" %>
+  <% end %>
+</div>

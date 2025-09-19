@@ -1,0 +1,11 @@
+
+const textarea = document.querySelector('#notesForm textarea');
+const notesCard = document.querySelector(`[data-recommendation-id='<%= @recommendation.id %>'] .card-text.notes`);
+
+if(notesCard) {
+  notesCard.textContent = textarea.value || "No notes added yet.";
+}
+
+// Close modal
+const notesModal = bootstrap.Modal.getInstance(document.getElementById('notesModal'));
+notesModal.hide();

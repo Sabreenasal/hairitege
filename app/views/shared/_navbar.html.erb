@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light sticky-top bg-light shadow-sm py-3 px-4">
+  <div class="container d-flex justify-content-between align-items-center">
+
+    <div>
+      <% if user_signed_in? %>
+        <% if defined?(@client) && controller_name == 'recommendations' %>
+          <%= link_to "← Back to Mane Vault", mane_vault_client_path(@client), class: "btn btn-outline-secondary" %>
+        <% elsif defined?(@client) && current_user.stylist? %>
+          <%= link_to "← Back", stylist_dashboard_path, class: "btn btn-outline-secondary" %>
+        <% elsif controller_name == 'stylists' %>
+          <%= link_to "← Back to Home", root_path, class: "btn btn-outline-secondary" %>
+        <% else %>
+          <%= link_to "← Back", root_path, class: "btn btn-outline-secondary" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="fw-bold fs-4 text-center" style="font-family: 'Lobster', cursive; font-size: 1.8rem; color: #2e7d32;">
+      Hairitege
+    </div>
+
+    <div class="d-flex gap-2">
+      <% if current_user&.stylist? && defined?(@client) && controller_name != 'recommendations' %>
+        <%= link_to "Add Product", new_client_recommendation_path(@client), class: "btn btn-primary" %>
+      <% end %>
+
+      <% if user_signed_in? && controller_name != 'recommendations' %>
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %>
+      <% elsif !user_signed_in? %>
+        <%= link_to "Sign In", new_user_session_path, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+  </div>
+</nav>
