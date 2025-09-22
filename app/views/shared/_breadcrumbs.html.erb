@@ -1,0 +1,25 @@
+<% if defined?(@breadcrumbs) && @breadcrumbs.present? %>
+  <nav aria-label="breadcrumb" class="mb-3" style="--bs-breadcrumb-divider: url('data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'8\' height=\'8\'%3E%3Cpath d=\'M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z\' fill=\'currentColor\'/%3E%3C/svg%3E');">
+    <ol class="breadcrumb">
+      <% total = @breadcrumbs.length - 1 %>
+      <% @breadcrumbs.each_with_index do |(name, path), index| %>
+        <% ratio = total.zero? ? 0 : index.to_f / total %>
+        <% r = 0 %>
+        <% g = (128 + (0 - 128) * ratio).to_i %>
+        <% b = (0 + (255 - 0) * ratio).to_i %>
+        <% inline_color = "color: rgb(#{r},#{g},#{b});" %>
+        <% hover_color = "color: rgb(#{r},#{[g+30,255].min},#{[b+30,255].min});" %> <%# brighter on hover %>
+
+        <% if index == total %>
+          <li class="breadcrumb-item fw-bold active" aria-current="page" style="<%= inline_color %>">
+            <%= name %>
+          </li>
+        <% else %>
+          <li class="breadcrumb-item">
+            <%= link_to name, path, style: inline_color, onmouseover: "this.style.color='#{[0, g+30].min},#{[b+30,255].min}',this.style.color='rgb(#{r},#{[g+30,255].min},#{[b+30,255].min})'", onmouseout: "this.style.color='rgb(#{r},#{g},#{b})'" %>
+          </li>
+        <% end %>
+      <% end %>
+    </ol>
+  </nav>
+<% end %>

@@ -13,5 +13,11 @@ class ClientsController < ApplicationController
 
     # Preload recommendations with their products
     @recommendations = @client.recommendations.includes(:product)
+        @breadcrumbs = [
+      ["Home", root_path],
+      ["Dashboard", stylist_dashboard_path],
+      [@client.name, mane_vault_client_path(@client)]
+    ]
+
   end
 end

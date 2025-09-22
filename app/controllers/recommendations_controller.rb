@@ -27,6 +27,13 @@ end
 
  
     @recommendation = Recommendation.new(client: @client, stylist: current_user)
+      @breadcrumbs = [
+      ["Home", root_path],
+      ["Dashboard", stylist_dashboard_path],
+      [@client.name, mane_vault_client_path(@client)],
+      ["Recommendations", client_recommendations_path(@client)],
+      ["New Recommendation", nil]
+    ]
   end
 
   

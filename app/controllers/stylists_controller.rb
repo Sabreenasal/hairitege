@@ -1,10 +1,16 @@
 class StylistsController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_stylist!
 
   def dashboard
     @stylist = current_user
     @clients = @stylist.clients.reload
     @new_client = User.new
+
+    @breadcrumbs = [
+      ["Home", root_path],
+      ["Dashboard", stylist_dashboard_path]
+    ]
   end
 
   def create_client
@@ -19,9 +25,9 @@ class StylistsController < ApplicationController
       end
 
       Recommendation.create!(
-        stylist_id: current_user.id,
-        client_id: @new_client.id,
-        product_id: default_product.id,
+        stylist: current_user,
+        client: @new_client,
+        product: default_product
       )
 
       redirect_to stylist_dashboard_path, notice: "Client added successfully."
@@ -31,6 +37,10 @@ class StylistsController < ApplicationController
       @stylist = current_user
       @clients = @stylist.clients.reload
       flash.now[:alert] = @new_client.errors.full_messages.join(", ")
+      @breadcrumbs = [
+        ["Home", root_path],
+        ["Dashboard", stylist_dashboard_path]
+      ]
       render :dashboard
     end
   end
@@ -51,5 +61,8 @@ class StylistsController < ApplicationController
   def client_params
     params.require(:user).permit(:name, :email, :password)
   end
-end
 
+  def ensure_stylist!
+    redirect_to root_path, alert: "Access denied" unless current_user.stylist?
+  end
+end
