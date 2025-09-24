@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  # NOTE: You could move both of these lines to the resources :stylists section since you already have it.
+
   get "stylists/dashboard", to: "stylists#dashboard", as: :stylist_dashboard
 
   delete "stylists/:id/remove_client", to: "stylists#remove_client", as: :remove_client
