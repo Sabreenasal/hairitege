@@ -2,6 +2,8 @@ class StylistsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_stylist!
 
+  # NOTE: Your controllers are performing database queries directly. Instead, you could delegate most of them to the model layer to follow DRY query principles.
+
   def dashboard
     @stylist = current_user
     @clients = @stylist.clients.reload
@@ -14,6 +16,8 @@ class StylistsController < ApplicationController
   end
 
   def create_client
+    # NOTE: Here, it’s good to not only create a new client but also give a stylist a list of existing clients to connect them to a stylist. However, you should work on your database model first to achieve that.
+
     @new_client = User.new(client_params)
     @new_client.role = "client"
 

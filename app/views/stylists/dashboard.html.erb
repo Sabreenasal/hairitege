@@ -4,6 +4,8 @@
 <div class="container py-5">
   <h2 class="text-center mb-4 text-green font-lobster">Your Clients</h2>
 
+  <%# NOTE: This card could also be moved into a partial. %>
+  
   <% if @clients.any? %>
     <div class="row g-4">
       <% @clients.each do |client| %>
@@ -41,6 +43,8 @@
         </ul>
       </div>
     <% end %>
+
+    <%# NOTE: It seems like you already have a partial for this form, so you don’t need to repeat the code below. %>
 
     <%= form_with scope: :user, url: create_client_stylists_path, method: :post, local: true do |f| %>
       <%= f.text_field :name, placeholder: "Client Name", class: "form-control mb-3", required: true %>

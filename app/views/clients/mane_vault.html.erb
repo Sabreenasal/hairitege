@@ -1,3 +1,5 @@
+<%# NOTE: These partials should be included in the application.html.erb file only, so you don’t have to repeat them in every other view. %>
+
 <%= render 'shared/navbar' %>
 <%= render 'shared/breadcrumbs' %>
 
@@ -79,6 +81,7 @@
   </div>
 </div>
 
+<%# NOTE: This could be in a separate file. Also, you could use Bootstrap modals instead of JavaScript. %>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const notesModal = document.getElementById("notesModal");
